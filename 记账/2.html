@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    
+  
+    ul{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #app{
+      width: 550px;
+      height: 800px;
+      border: 2px solid red;
+      margin: 0 auto;
+    }
+    .list{
+      display: flex;
+    }
+    .list>li{
+      width: 60px;
+      height: 32px;
+      text-align: center;
+      line-height: 32px;
+      cursor: pointer;
+      margin-left: 48px;
+    }
+    .banner{
+            width: 550px;
+         height: 100px;
+         position: absolute;
+       
+         
+     }
+     .banner ul li{
+         float: left;
+         width: 20%;
+         margin-top: 20px;
+         
+     }
+     .banner ul li img{
+         width: 50px;
+         height: 50px;
+         margin-left: 30px;
+     }
+     .banner ul li span{
+       margin-left: 40px;
+     }
+   
+    .active{
+      background-color: #e4393c;
+      color: #fff;
+    }
+
+    .type{
+      margin-top: 285px;
+      margin-left: -16px;
+    }
+
+    .type .nav{
+            width: 90%;
+            height: 35px;
+            line-height: 35px;
+            font-size: 18px;
+            margin-left: 18px;
+        }
+    .type .h{
+            border-top: 1px solid gray;
+            margin-bottom: 8px;
+      }
+    .titles {
+      width: 100%;
+      height: 40px;
+      font-size: 18px;
+      
+    }
+    .titles .nav{
+            width: 20%;
+            height: 17px;
+            line-height: 55px;
+            margin-left: 20px;
+        }  
+        .titles input{
+          width: 50%;
+          height: 36px;
+          border: 0;
+          font-size: 16px;
+          margin-left: 88px;
+          margin-top: -10px;
+      }
+ 
+      .riqi{
+          top: 59%;
+      }
+      .jine{
+          top: 66%;
+      }
+      .beizhu{
+          top: 73%;
+      } 
+      
+      .btn{
+        width: 80%;
+        height: 50px;
+        margin-left: 50px;
+        margin-top: 32px;
+      }
+      .cunxu{
+            width: 500px;
+            height: 70px;
+            margin-top: 20px;
+            margin-left: 30px;
+            border:1px solid blue;
+            display: flex;
+        }
+       .cunxu .user{
+           width: 50px;
+           height: 50px;
+           /* background-color: blue; */
+           line-height: 50px;
+           text-align: center;
+        }
+      .cunxu .user img{
+        width: 50px;
+        height: 50px;
+      }
+      .cunxu .nav{
+            width: 75%;
+            height: 50px;
+        }
+        .cunxu .nav .navtop{
+            width: 100%;
+            height: 50%;
+            text-align: center;
+        }
+        .cunxu .nav .navtop .typ{
+            width: 30%;
+            text-align: center;
+        }
+        .cunxu .nav .navbottom{
+            width: 100%;
+            height: 50%;
+            text-align: center;
+        }
+        .cunxu .nav .navbottom .beizhu{
+            width: 30%;
+            text-align: center;
+        }
+        .cunxu .money{
+            text-align: center;
+            margin-left: 15px;
+            line-height: 50px;
+        }
+       
+        
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div>
+      <ul class="list">
+        <li v-for="item in put" :class="{active: item.isActive}" @click="toggle(item)" style="margin-left: 150px;">{{item.title}}</li>
+      </ul>
+    </div> 
+
+    <div class="banner">
+      <ul>
+          <li class="fl" v-for="item in types" >
+              <div><img :src="item.icon"></div>
+              <span>{{item.title}}</span>
+          </li>
+      </ul>
+     </div>
+     
+    <div class="type">
+      <div class="nav">账户选择</div>
+      <div class="h"></div>
+      <ul class="list">
+      <li v-for="item in account" :class="{active: item.isActive}" @click="toggleTag(item)">{{item.title}}</li>
+      </ul>
+    </div>
+
+      <!-- 日期 -->
+      <div class="titles riqi">
+      <div class="nav fl">日期:</div>
+      <input type="text" class="fl" placeholder="请选择日期" v-model="time"/>
+     </div>
+     <!-- 金额 -->
+     <div class="titles jine">
+         <div class="nav fl">金额:</div>
+         <input type="text" class="fl" placeholder="输入金额" v-model="price" @input="inputPrice" />
+     </div>
+     <!-- 备注 -->
+     <div class="titles beizhu">
+         <div class="nav fl">备注:</div>
+         <input type="text" class="fl" placeholder="输入备注" v-model="remark"/>
+     </div>
+     <!-- 保存 -->
+     <input type="button" value="保存" @click="add" class="btn"/>
+     
+     <div class="cunxu " v-for="item in lists">
+      <div class="user fl"><img src="./images/images1.png" alt=""></div>
+      <div class="nav fl">
+          <div class="navtop">
+              <div class="typ fl">{{item.accounts}}</div>
+              <div class="time fl">{{item.time}}</div>
+          </div>
+          <div class="navbottom">
+              <div class="beizhu fl">备注</div>
+              <div class="beizhus fl">{{item.remark}}</div>
+          </div>
+      </div>
+      <div class="money fl">￥{{item.price}}</div>
+     </div>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        time:"",
+                remark:"",
+                price:"",
+                accounts:"",
+        put:[
+        {title: '收入', isActive: true},
+        {title: '支出', isActive: false},
+        ],
+
+        account: [
+          {title: '支付宝', isActive: true},
+          {title: '微信', isActive: false},
+          {title: '现金', isActive: false},
+          {title: '储蓄卡', isActive: false},
+          {title: '信用卡', isActive: false}
+        ],
+
+        types: [
+              {title: '餐饮', icon:"./images/images1.png", isActive: true},
+              {title: '购物', icon:"./images/images2.png", isActive: false},
+              {title: '出行', icon:"./images/images3.png", isActive: false},
+              {title: '健康', icon:"./images/images4.png", isActive: false},
+              {title: '娱乐', icon:"./images/images5.png", isActive: false},
+              {title: '住房', icon:"./images/images6.png", isActive: false},
+              {title: '交通', icon:"./images/images7.png", isActive: false},
+              {title: '人情', icon:"./images/images8.png", isActive: false},
+              {title: '学习', icon:"./images/images9.png", isActive: false},
+              {title: '其他', icon:"./images/images10.png", isActive: false},
+        ],
+
+        lists:[
+                    {
+                        accounts:"微信",
+                        time:"2020.6.19",
+                        remark:"这是一个备注",
+                        price:200
+                    }
+                ],
+      },
+
+      methods: {
+        toggle(item) {
+        
+        //如果标签已经被激活，则直接拦截
+        if (item.isActive) {
+          return;
+        }
+        
+        //查找之前激活标签，修改为未激活
+        for (let i = 0; i < this.put.length; i++) {
+          if (this.put[i].isActive) {
+            this.put[i].isActive = false;
+            break;
+          }
+        }
+        
+        item.isActive = true;
+        },
+
+        toggleTag(item) {
+
+          //如果标签已经被激活，则直接拦截
+          if (item.isActive) {
+            return;
+          }
+
+          //查找之前激活标签，修改为未激活
+          for (let i = 0; i < this.account.length; i++) {
+            if (this.account[i].isActive) {
+              this.account[i].isActive = false;
+              break;
+            }
+          }
+
+          item.isActive = true;
+        },
+        // 添加数据
+        add(){
+                    for(let i = 0;i<this.account.length;i++){
+                        this.accounts = this.account[i].title
+                    }
+                    this.lists.push({accounts:this.accounts,time:this.time,remark:this.remark,price:this.price});
+                    // 清除数据
+                    this.accounts=this.time = this.remark = this.price = "";
+                },
+            //输入金额
+            inputPrice() {
+              let num = parseInt(this.price);
+                  if (isNaN(num)) {
+                    this.price = 1;
+                  } else {
+                    this.price = num;
+                  }
+            },
+            
+      }
+    })
+  </script>
+</body>
+</html>

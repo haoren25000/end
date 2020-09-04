@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            width: 32px;
+            height: 32px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <rate :x="arr" @send="abb"></rate>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        Vue.component('rate', {
+            props: {
+                x: {
+                    type: [Array, Object]
+                }
+            },
+            template: `
+            <div>
+                <div v-for="item in x" >
+                    <img :src="i.isActive ? './icon/yellow.png':'./icon/huise.png'" 
+                    v-for = "(i , key) in item.star" @click="$emit('send',key,item)">
+                </div>
+            </div>
+            `
+        })
+
+        new Vue({
+            el: "#app",
+            data: {
+                arr: [
+                    {
+                        star: [
+                            { isActive: true },
+                            { isActive: false },
+                            { isActive: false },
+                            { isActive: false },
+                            { isActive: false }
+                        ]
+                    }
+                ],
+                count: 0
+            },
+            methods: {
+                abb(i, item) {
+                
+                    this.count = i
+                    for (let k = 0; k < item.star.length; k++) {
+                        item.star[k].isActive = k <= i ? true : false
+                    }
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

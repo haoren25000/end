@@ -1,0 +1,8 @@
+titlt{
+    color: red;
+}
+.box{
+    width: 400px;
+    height: 400px;
+    background: url('../images/01.png') no-repeat center center;
+}

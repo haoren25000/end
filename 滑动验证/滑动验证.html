@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box{
+      width: 280px;
+      margin: 50px auto 0;
+      border: 2px solid #e4393c;
+    }
+    .auto-img{
+      width: 100%;
+      display: block;
+    }
+    .block{
+      height: 40px;
+      background-color: #e8e8e8;
+      position: relative;
+    }
+    .mask{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 40px;
+      height: 40px;
+      background-color: #000;
+    }
+    .box-img{
+      position: relative;
+    }
+    .white-block{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 40px;
+      height: 40px;
+      background-color: #fff;
+    }
+    .move-block{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 40px;
+      height: 40px;
+      background-image: url("./bg2.jpg");
+      background-repeat: no-repeat;
+      z-index: 1;
+    }
+
+    .layer{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 40px;
+      z-index: 5;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="box-img">
+      <img class="auto-img" src="./bg2.jpg" alt="">
+      <!-- 空白块 -->
+      <div class="white-block"></div>
+
+      <!-- 移动块 -->
+      <div class="move-block"></div>
+    </div>
+    <div class="block">
+
+      <!-- 移动块 -->
+      <div class="mask"></div>
+
+      <!-- 遮罩层 -->
+      <div class="layer"></div>
+    </div>
+  </div>
+
+  <script>
+
+    window.onload = function () {
+
+      function query(selector) {
+        return document.querySelector(selector);
+      }
+
+      //验证通过左右容差10px
+      var left0 = 10;
+
+      //获取box-img的宽度, 高度
+      let boxImg = getComputedStyle(query('.box-img'));
+      let boxImgWidth = parseFloat(boxImg.width);
+      let boxImgHeight = parseFloat(boxImg.height);
+      console.log(boxImgWidth);
+      console.log(boxImgHeight);
+
+      //随机生成空白块
+      var whiteBlock = query('.white-block');
+      var whiteBlockStyle = getComputedStyle(whiteBlock);
+      let whiteBlockWidth = parseFloat(whiteBlockStyle.width);
+      let whiteBlockHeight = parseFloat(whiteBlockStyle.height);
+      console.log(whiteBlockWidth);
+      console.log(whiteBlockHeight);
+
+      var minLeft = boxImgWidth / 2;
+      var maxLeft = boxImgWidth - whiteBlockWidth;
+
+      var minTop = 0;
+      var maxTop = boxImgHeight - whiteBlockHeight;
+
+      //随机生成坐标 5 - 8
+      var randomLeft = Math.floor(Math.random() * (maxLeft - minLeft + 1) + minLeft);
+      console.log('randomLeft ==> ', randomLeft);
+
+      var randomTop = Math.floor(Math.random() * (maxTop - minTop + 1) + minTop);
+      console.log('randomTop ==> ', randomTop);
+
+      whiteBlock.style.left = randomLeft + 'px';
+      whiteBlock.style.top = randomTop + 'px';
+
+
+      //移动块
+      var moveMaxLeft = boxImgWidth / 2;
+      var moveRandomLeft = Math.ceil(Math.random() * moveMaxLeft);
+      console.log('moveRandomLeft ==> ', moveRandomLeft);
+
+      var moveBlock = query('.move-block');
+      moveBlock.style.left = moveRandomLeft + 'px';
+      moveBlock.style.top = randomTop + 'px';
+
+      //偏移背景
+      moveBlock.style.backgroundPosition = -randomLeft + 'px -' + randomTop + 'px';
+
+      //移动滑轨的移动块
+      var mask = query('.mask');
+      mask.style.left = moveRandomLeft + 'px';
+      
+
+      //mask绑定onmousedown
+      //layer绑定onmousemove
+      var layer = query('.layer');
+      
+      var x0 = 0;
+      mask.onmousedown = function (e) {
+        
+        x0 = e.offsetX;
+        layer.style.display = 'block';
+      }
+
+      layer.onmousemove = function (e) {
+        var x = e.offsetX - x0;
+        moveBlock.style.left = x + 'px';
+        mask.style.left = x + 'px';
+      }
+
+      layer.onmouseup = function () {
+        layer.style.display = 'none';
+
+        //判断是否验证通过
+        //获取移动块的left
+        let maskLeft = parseFloat(getComputedStyle(mask).left);
+        console.log(maskLeft);
+
+        //容差范围
+        var wMinLeft = randomLeft - left0;
+        var wMaxLeft = randomLeft + left0;
+
+        if (maskLeft >= wMinLeft && maskLeft <= wMaxLeft) {
+          console.log('pass');
+        }
+        
+      }
+
+      layer.onmouseout = function () {
+        layer.style.display = 'none';
+      }
+
+    }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.box{
+			width: 500px;
+			height: 500px;
+			background-color: #ddd;
+			margin: 0 auto;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="box">
+		<canvas id="canvas" width="500" height="500"></canvas>
+	</div>
+	
+
+	<script>
+
+		window.onload = function () {
+
+			let canvas = document.getElementById('canvas');
+
+			let context = canvas.getContext('2d');
+
+			context.strokeStyle = '#e4393c';
+
+			//设置圆弧的宽度
+			context.lineWidth = 8;
+
+			//设置线条两端的形状 round：圆头
+			context.lineCap = 'round';
+
+			let max = 360;
+			let n = 0;
+			let percent = 0.8;
+
+			function drawArc() {
+			
+				let timer = setInterval(() => {
+
+					if (n > max * percent) {
+						//清除定时器
+						clearInterval(timer);
+						timer = null;
+					} else {
+
+						//清除画布的图形
+						context.clearRect(0, 0, canvas.width, canvas.height);
+
+						context.beginPath();
+						context.arc(canvas.width / 2, canvas.height / 2, 150, Math.PI / 180 * 120, Math.PI / 180 * (120 + n), false);
+
+						context.stroke();
+
+						//绘制文本
+						drawText();
+
+						n++;
+					}
+
+
+				}, 12)
+
+			}
+
+			//绘制圆弧
+			drawArc();
+
+			//绘制文本
+			function drawText() {
+				context.beginPath();
+				context.fillStyle = '#000';
+				context.textAlign = 'center';
+				context.font = '48px 微软雅黑';
+				context.fillText(parseInt(n / max * 100) + '%', canvas.width / 2, canvas.height / 2);
+				context.closePath();
+			}
+		}
+
+	</script>
+
+</body>
+
+</html>

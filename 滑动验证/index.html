@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 300px;
+            margin: 0 auto;
+        }
+        .box-bg{
+            height: 300px;
+            background: url("./originImg.jpg") no-repeat 0 0;
+            position: relative;
+        }
+
+        .block{
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 50px;
+        }
+        .slide-block{
+            background-image: url("./originImg.jpg");
+            background-repeat: no-repeat;
+            background-position: -200px -50px;
+            left: 0;
+            z-index: 2;
+        }
+
+        .white-block{
+            background-color: #fff;
+            left: 200px;
+            z-index: 1;
+        }
+        .slide{
+            height: 30px;
+            background-color: #000;
+            margin-top: 20px;
+            position: relative;
+        }
+        .move-block{
+            width: 50px;
+            height: 24px;
+            position: absolute;
+            top: 3px;
+            left: 0;
+            background-color: #f5f5f5;
+            z-index: 1;
+        }
+
+        .layer{
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            /* background-color: #ddd; */
+            left: 0;
+            top: 0;
+            z-index: 2;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="box">
+        <div class="box-bg">
+            <span class="slide-block block"></span>
+            <span class="white-block block"></span>
+        </div>
+        <div class="slide">
+            <span class="move-block"></span>
+            <span class="layer"></span>
+        </div>
+    </div>
+
+    <script>
+        
+        window.onload = function () {
+
+            function query(selector) {
+                return document.querySelector(selector);
+            }
+
+
+            //获取滑轨
+            var slide = query('.slide');
+            var slideWidth = slide.offsetWidth;
+            console.log('slideWidth ==> ', slideWidth);
+
+            //随机生成白色块 150 <= left <= 250, top: 0 <= top <= 250
+            var whiteBlock = query('.white-block');
+            var whiteBlockWidth = whiteBlock.offsetWidth;
+           
+            
+            //滑动块 0 <= left <= 100, top: 0 <= top <= 250
+            var slideBlock = query('.slide-block');
+            var slideBlockWidth = slideBlock.offsetWidth;
+            console.log('slideBlockWidth ==> ', slideBlockWidth);
+
+            //随机生成坐标
+            function getPoint() {
+                //随机生成白色块坐标
+                var whiteMin = slideWidth / 2;
+                var whiteMax = slideWidth - whiteBlockWidth;
+
+                var x = Math.floor(Math.random() * (whiteMax - whiteMin + 1) + whiteMin);
+                var y = Math.ceil(Math.random() * whiteMax);
+
+                whiteBlock.style.left = x + 'px';
+                whiteBlock.style.top = y + 'px';
+
+                //随机生成滑动块坐标
+                var slideBlockMax = slideWidth / 2 - slideBlockWidth;
+                var x1 = Math.ceil(Math.random() * slideBlockMax);
+                slideBlock.style.left = x1 + 'px';
+                slideBlock.style.top = y + 'px';
+                slideBlock.style.backgroundPosition = -x + 'px ' + -y + 'px';
+
+                //设置移动块的left
+                moveBlock.style.left = x1 + 'px';
+            }
+
+            
+            //获取move-block
+            var moveBlock = query('.move-block');
+            var moveBlockWidth = moveBlock.offsetWidth;
+            console.log('moveBlockWidth ==> ', moveBlockWidth);
+
+            getPoint();
+            
+
+            //遮罩层
+            var layer = query('.layer');
+
+            var x0 = 0;
+            moveBlock.onmousedown = function (e) {
+                // console.log(slide.offsetLeft);
+                // console.log(e.pageX);
+                //e.offsetX: 获取相对绑定事件元素的鼠标坐标
+                // console.log(e.offsetX);
+
+                // this.style.left = e.pageX - slide.offsetLeft - e.offsetX + 'px';
+
+                x0 = e.offsetX;
+
+                layer.style.display = 'block';
+            }
+
+            layer.onmouseup = function () {
+                this.style.display = 'none';
+
+                //获取滑动块的left
+                var moveBlockLeft = moveBlock.offsetLeft;
+                console.log('moveBlockLeft ==> ', moveBlockLeft);
+
+                //获取白色块的left
+                var whiteBlockLeft = whiteBlock.offsetLeft;
+                console.log('whiteBlockLeft ==> ', whiteBlockLeft);
+
+                if (Math.abs(moveBlockLeft - whiteBlockLeft) <= 5) {
+                    //通过
+                    console.log('通过');
+
+                    slideBlock.style.left = whiteBlockLeft + 'px';
+                    moveBlock.style.left = whiteBlockLeft + 'px';
+                } else {
+                    getPoint();
+                }
+            }
+
+            layer.onmousemove = function (e) {
+                console.log('aaa');
+                //移动块的移动范围
+                var minLeft = 0;
+                var maxLeft = slideWidth - moveBlockWidth;
+
+                //移动的left
+                var left = e.offsetX - x0;
+
+                //控制left的范围
+                left = left >= maxLeft ? maxLeft : left <= minLeft ? minLeft : left;
+
+                moveBlock.style.left = left + 'px';
+
+                slideBlock.style.left = left + 'px';
+                
+            }
+
+            layer.onmouseout = function () {
+                // this.onmousemove = null;
+                this.style.display = 'none';
+            }
+
+        }
+
+    </script>
+</body>
+</html>

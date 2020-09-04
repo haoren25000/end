@@ -1,0 +1,60 @@
+﻿{
+	"title": "餐饮",
+	"type": "canyin",
+	"url": "cloud://xiaoniao-abcd1.7869-xiaoniao-abcd1-1302633894/icons/餐饮.png"
+}
+
+{
+	"title": "购物",
+	"type": "gouwu",
+	"url": "cloud://xiaoniao-abcd1.7869-xiaoniao-abcd1-1302633894/icons/购物.png"
+}
+
+
+{
+	"title": "出行",
+	"type": "chuxing",
+	"url": "cloud://xiaoniao-abcd1.7869-xiaoniao-abcd1-1302633894/icons/出行.png"
+}
+
+{
+	"title": "健康",
+	"type": "jiankang",
+	"url": "cloud://xiaoniao-abcd1.7869-xiaoniao-abcd1-1302633894/icons/健康.png"
+}
+
+{
+	"title": "娱乐",
+	"type": "yule",
+	"url": "cloud://xiaoniao-abcd1.7869-xiaoniao-abcd1-1302633894/icons/娱乐.png"
+}
+
+{
+	"title": "住房",
+	"type": "zhufang",
+	"url": "cloud://xiaoniao-abcd1.7869-xiaoniao-abcd1-1302633894/icons/住房.png"
+}
+
+{
+	"title": "人情",
+	"type": "renqing",
+	"url": "cloud://xiaoniao-abcd1.7869-xiaoniao-abcd1-1302633894/icons/人.png"
+}
+
+{
+	"title": "交通",
+	"type": "jiaotong",
+	"url": "cloud://xiaoniao-abcd1.7869-xiaoniao-abcd1-1302633894/icons/交通.png"
+}
+
+{
+	"title": "学习",
+	"type": "xuexi",
+	"url": "cloud://xiaoniao-abcd1.7869-xiaoniao-abcd1-1302633894/icons/学习.png"
+}
+
+{
+	"title": "其他",
+	"type": "qita",
+	"url": "cloud://xiaoniao-abcd1.7869-xiaoniao-abcd1-1302633894/icons/其他.png"
+}

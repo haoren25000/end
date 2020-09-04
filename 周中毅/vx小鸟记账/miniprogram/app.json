@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/epidemic/epidemic",
+    "pages/mybooking/mybooking",
+    "pages/my/my",
+    "pages/booking/booking",
+    "pages/auth/auth",
+    "pages/chart/chart",
+    "pages/detail/detail"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#070707",
+    "navigationBarTitleText": "小鸟记账",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "black",
+    "selectedColor": "#CDCDCD",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": " 首页",
+        "iconPath": "./icons/home.png",
+        "selectedIconPath": "./icons/home_active.png"
+      },
+      {
+        "pagePath": "pages/booking/booking",
+        "text": " 记账",
+        "iconPath": "./icons/booking.png",
+        "selectedIconPath": "./icons/booking_active.png"
+      },
+      {
+        "pagePath": "pages/chart/chart",
+        "text": " 图表",
+        "iconPath": "./icons/chart.png",
+        "selectedIconPath": "./icons/chart_active.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": " 我的",
+        "iconPath": "./icons/my.png",
+        "selectedIconPath": "./icons/my_active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

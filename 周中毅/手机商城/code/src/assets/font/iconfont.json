@@ -1,0 +1,86 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "584251",
+      "name": "右箭头",
+      "font_class": "iconfontjiantou5",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "688108",
+      "name": "搜索 详情",
+      "font_class": "sousuoxiangqing",
+      "unicode": "e793",
+      "unicode_decimal": 59283
+    },
+    {
+      "icon_id": "833700",
+      "name": "苏宁易购",
+      "font_class": "suningyigou",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "2794635",
+      "name": "领券中心",
+      "font_class": "lingquanzhongxin",
+      "unicode": "e8e7",
+      "unicode_decimal": 59623
+    },
+    {
+      "icon_id": "3900910",
+      "name": "定位",
+      "font_class": "tubiaozhizuomoban",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "4157663",
+      "name": "钻石",
+      "font_class": "Shapecopy",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "5176820",
+      "name": "刮奖",
+      "font_class": "guajiang",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "7898567",
+      "name": "促销活动-优惠券",
+      "font_class": "cuxiaohuodong-youhuiquan",
+      "unicode": "e515",
+      "unicode_decimal": 58645
+    },
+    {
+      "icon_id": "8361864",
+      "name": "循环",
+      "font_class": "xunhuan",
+      "unicode": "e6cf",
+      "unicode_decimal": 59087
+    },
+    {
+      "icon_id": "13774608",
+      "name": "满减券",
+      "font_class": "manjianquan",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "14145119",
+      "name": "对",
+      "font_class": "dui",
+      "unicode": "e73f",
+      "unicode_decimal": 59199
+    }
+  ]
+}

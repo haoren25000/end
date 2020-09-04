@@ -1,0 +1,37 @@
+webpack: 一个静态资源打包器(自动化构建工具)
+打包html, css, js, 图片
+
+配置环境
+
+  安装nodejs
+
+  检查nodejs是否安装完成
+  node -v
+
+  检查npm是否安装完成
+  npm -v
+
+  将npm调整为淘宝镜像下载
+  npm config set registry https://registry.npm.taobao.org
+
+  由于考虑npm下载极慢，可以采取淘宝镜像
+  npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+  查看cnpm版本
+  cnpm -v
+
+  先初始化package.json, 该文件记录当前项目的名称、版本、依赖包、脚本命令...
+  npm init
+
+  本地安装webpack、webpack-cli
+  npm install webpack --save-dev
+  install: 可以简写 i
+  --save: 将包名称写入package.json文件的生产依赖项中
+  --save的简写-S
+  --save-dev: 将包名称写入package.json文件的开发依赖项中
+  --save-dev的简写-D
+
+  webpack打包默认入口文件路径为 src/index.js
+  webpack打包输出文件路径为 dist/main.js
+
+  webpack项目配置文件 webpack.config.js

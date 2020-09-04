@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .upload-box{
+      width: 200px;
+      height: 200px;
+      border: 2px dashed #e8e8e8;
+    }
+    .label-box{
+      display: block;
+      height: 200px;
+      text-align: center;
+      line-height: 200px;
+    }
+    .upload-ipt{
+      display: none;
+    }
+    .img{
+      float: left;
+      width: 200px;
+      height: 200px;
+      border: 2px solid #e4393c;
+    }
+    .preview{
+      margin-top: 20px;
+    }
+    .preview::after{
+      display: block;
+      content: "";
+      clear: both;
+    }
+    .auto-img{
+      width: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="upload-box">
+    <label class="label-box">
+      <input class="upload-ipt" type="file" multiple />
+      上传
+    </label>
+  </div>
+  <div class="preview">
+      
+  </div>
+  
+  <script>
+    window.onload = function () {
+      //只能上传png, 'jpeg'
+      let types = ['png', 'jpeg']
+      
+      //最大上传图片大小不能超过50kb
+      let limitSize = 50 * 1024;
+
+      //获取预览图元素
+      let preview = document.querySelector('.preview');
+
+      //
+
+      let uploadIpt = document.querySelector('.upload-ipt');
+      uploadIpt.onchange = function () {
+        //如果存在图片比例不满足
+        let isHas = false;
+
+        //保存图片对象
+        let images = [];
+
+        let self = this;
+
+        // console.log(this.files);
+        for (let i = 0; i < this.files.length; i++) {
+
+          //如果存在图片比例不正确，则直接拦截
+          if (isHas) {
+            return;
+          }
+
+          //获取当前上传类型
+          let type = this.files[i].type.split('/')[1];
+          console.log(type);
+          if (types.indexOf(type) === -1) {
+            //如果该类型不允许被上传
+            console.log('只支持上传png格式图片');
+            return;
+          }
+
+          //验证尺寸
+          if (this.files[i].size > limitSize) {
+            //最大上传图片大小不能超过50kb
+            console.log('最大上传图片大小不能超过50kb');
+            return;
+          }
+
+          //验证上传比例关系 1:1
+          //创建文件阅读对象 FileReader
+          let fileReader = new FileReader();
+
+          //监听文件是否被读取完毕
+          fileReader.onload = function () {
+            // console.log(this.result);
+            //创建图片对象
+            let img = new Image();
+            img.className = 'auto-img';
+            img.src = this.result;
+            //监听图片是否加载完成
+            img.onload = function () {
+              // console.log(this);
+              //获取图片的原始尺寸
+              // let width = this.naturalWidth;
+              // let height = this.naturalHeight;
+              // console.log('width ==> ', width);
+              // console.log('height ==> ', height);
+              //宽高等比
+              if (this.naturalWidth != this.naturalHeight) {
+                isHas = true;
+                console.log('上传的图片必须宽高等比');
+              } else {
+                //当前图片上传完毕
+                // count++;
+                images.push(img);
+              }
+
+              //如果所有图片都完成上传
+              if (images.length == self.files.length) {
+                //显示预览图
+                images.forEach(v => {
+                  let div = document.createElement('div');
+                  div.className = 'img';
+                  div.appendChild(v);
+                  preview.appendChild(div);
+                })
+                
+              }
+
+            }
+          }
+
+          //将图片信息读取为base64
+          fileReader.readAsDataURL(this.files[i]);
+
+
+        }
+
+      }
+
+    }
+  </script>
+</body>
+</html>

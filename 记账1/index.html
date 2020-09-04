@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset='UTF-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<title>Document</title>
+	<style>
+		body {
+			background-color: #4682b4;
+		}
+
+		/* 字体 */
+		@font-face {
+			font-family: 'iconfont';
+			src: url('./font/iconfont.eot');
+			src: url('./font/iconfont.eot?#iefix') format('embedded-opentype'),
+				url('./font/iconfont.woff2') format('woff2'),
+				url('./font/iconfont.woff') format('woff'),
+				url('./font/iconfont.ttf') format('truetype'),
+				url('./font/iconfont.svg#iconfont') format('svg');
+		}
+
+		.iconfont {
+			font-family: "iconfont" !important;
+			font-size: 16px;
+			font-style: normal;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		.box {
+			width: 360px;
+			height: 600px;
+			background-color: #ddd;
+			border-radius: 10px;
+			margin-top: 60px;
+			margin-left: 50px;
+			overflow: hidden;
+			float: left;
+		}
+
+		.header {
+			padding: 10px 14px;
+			box-sizing: border-box;
+			/* text-align: center; */
+			font-size: 18px;
+			font-weight: 600;
+			color: #333;
+			letter-spacing: 10px;
+			user-select: none;
+		}
+
+		.header-box {
+			width: 100%;
+			padding: 16px 10px 0;
+			background-color: snow;
+			border-radius: 10px;
+			box-sizing: border-box;
+			user-select: none;
+		}
+
+		.header-box>.income-box {
+			width: 120px;
+			height: 32px;
+			/* background-color: skyblue; */
+			box-sizing: border-box;
+			display: flex;
+			justify-content: center;
+			border-radius: 20px;
+			border: 1px solid #2b3033;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+
+		.header-box>.income-box>.income {
+			width: 60px;
+			height: 100%;
+			text-align: center;
+			line-height: 32px;
+			font-size: 14px;
+			cursor: pointer;
+		}
+
+		.header-box>.icon-box {
+			box-sizing: border-box;
+			width: 100%;
+			/* background-color: slateblue; */
+			display: flex;
+			/* flex: 2; */
+			flex-wrap: wrap;
+			justify-content: space-around;
+			margin-top: 24px;
+		}
+
+		.icon-box>.iFont {
+			width: 60px;
+			height: 72px;
+		}
+
+		.icon-box>.iFont>.iconfont {
+			margin: 0 auto;
+			display: block;
+			font-size: 18px;
+			width: 32px;
+			height: 32px;
+			text-align: center;
+			line-height: 32px;
+			border-radius: 50%;
+			background-color: #4682b4;
+			color: white;
+			cursor: pointer;
+		}
+
+		.icon-box>.iFont>.fonts {
+			padding: 3px;
+			box-sizing: border-box;
+			text-align: center;
+			/* background-color: steelblue; */
+			display: block;
+			font-size: 12px;
+			width: 100%;
+			color: #333;
+		}
+
+		.pay-box {
+			width: 100%;
+			padding: 0 14px;
+			background-color: snow;
+			border-radius: 10px;
+			box-sizing: border-box;
+			/* color: #333; */
+			margin-top: 10px;
+			user-select: none;
+		}
+
+		.pay-box>.account {
+			/* background-color: springgreen; */
+			padding: 10px 0;
+			border-bottom: 1px solid #ddd;
+			box-sizing: border-box;
+			font-weight: 600;
+			font-size: 14px;
+		}
+
+		.pay-box>.account-box {
+			padding: 10px 0;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.account-box>div {
+			width: 60px;
+			height: 28px;
+			text-align: center;
+			line-height: 28px;
+			background-color: #ddd;
+			/* color: #333; */
+			font-size: 12px;
+			border-radius: 20px;
+			cursor: pointer;
+		}
+
+		.data-box {
+			width: 100%;
+			padding: 5px 14px;
+			background-color: snow;
+			border-radius: 10px;
+			box-sizing: border-box;
+			color: #333;
+			margin-top: 10px;
+			font-size: 14px;
+			overflow: hidden;
+		}
+
+		.data-box>.data {
+			width: 100%;
+			padding: 8px 0;
+		}
+
+		.data>span {
+			display: inline-block;
+		}
+
+		input {
+			margin-left: 20px;
+			border: none;
+			outline: none;
+		}
+
+		.save-box {
+			width: 100%;
+			padding: 5px 3px;
+			/* background-color: snow; */
+			border-radius: 10px;
+			box-sizing: border-box;
+			color: #333;
+			margin-top: 26px;
+			font-size: 14px;
+			overflow: hidden;
+		}
+
+		button {
+			display: block;
+			width: 100%;
+			height: 36px;
+			border-radius: 10px;
+			border: none;
+			outline: none;
+			background-color: #4682b4;
+			cursor: pointer;
+			user-select: none;
+
+		}
+
+		.cosumer-box {
+			width: 100%;
+			padding: 0 10px;
+			/* background-color: snow; */
+			border-radius: 10px;
+			box-sizing: border-box;
+			user-select: none;
+		}
+
+		.cosumer-box>.cosumer {
+			width: 100%;
+			background-color: snow;
+			border-radius: 10px;
+			box-sizing: border-box;
+			user-select: none;
+			overflow: hidden;
+			margin-top: 10px;
+
+		}
+
+		.cosumer>.left,
+		.content,
+		.right {
+			float: left;
+		}
+
+		.left {
+			width: 20%;
+			height: 50px;
+			position: relative;
+		}
+
+		.left>.iconfont {
+			display: block;
+			width: 40px;
+			height: 40px;
+			background-color: #4682b4;
+			border-radius: 50%;
+			font-size: 26px;
+			color: white;
+			text-align: center;
+			line-height: 40px;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			margin: auto;
+		}
+
+		.auto-img{
+			width: 100%;
+			display: block;
+		}
+
+		.content {
+			width: 55%;
+			height: 50px;
+			;
+			font-size: 12px;
+			box-sizing: border-box;
+			padding: 6px 0px 6px 10px;
+		}
+
+		.content div {
+			display: block;
+			/* background-color: chartreuse; */
+		}
+
+
+		.right {
+			width: 25%;
+			height: 50px;
+			text-align: center;
+			line-height: 50px;
+			font-size: 14px;
+		}
+
+		.income-active {
+			background-color: #4682b4;
+		}
+
+		.account-box>.account-active {
+			background-color: #4682b4;
+		}
+
+		.icon-box>.iFont>.iconfont{
+			transition: transform .15s;
+		}
+
+		.icon-box>.iFont>.fonts{
+			transition: transform .15s;
+		}
+
+		.icon-box>.iFont>.icon-active {
+			font-size: 20px;
+			background-color: #03c03c;
+			transform: scale(1.1);
+		}
+
+		.icon-box>.iFont>.font-active {
+			font-weight: bold;
+			transform: scale(1.1);
+		}
+		
+		.t{
+			line-height: 38px;
+		}
+		.shouru{
+			color: #e4393c;
+		}
+		.zhichu{
+			color: rgb(10, 173, 10);
+		}
+	</style>
+</head>
+
+<body>
+	<div id='app'>
+		<div class="box">
+			<div class="header">
+				记账本
+			</div>
+			<div class="header-box">
+				<!-- 收入支出 -->
+				<div class="income-box">
+					<div class="income" :class="{'income-active': item.isActive}" v-for="item in titles" @click="toggleTag('titles', item)">{{item.title}}</div>
+				</div>
+				<div class="icon-box">
+					<div class="iFont" v-for="item in types" @click="toggleTag('types', item)">
+						<span class="iconfont" :class="{'icon-active': item.isActive}">
+							<img class="auto-img" :src="item.icon" alt="">
+						</span>
+						<span class="fonts" :class="{'font-active': item.isActive}">{{item.title}}</span>
+					</div>
+				</div>
+			</div>
+			<!-- 账户选择 -->
+			<div class="pay-box">
+				<div class="account">账户选择</div>
+				<div class="account-box">
+					<div :class="{'account-active': item.isActive}" v-for="item in account" @click="toggleTag('account', item)">{{item.title}}</div>
+				</div>
+			</div>
+
+			<!-- 日期选择 -->
+			<div class="data-box">
+				<div class="data">
+					<span>日期</span>
+					<input type="date" v-model="bookingInfo.date">
+				</div>
+				<div class="data">
+					<span>金额</span>
+					<input type="text" placeholder="输入金额" v-model="bookingInfo.money">
+				</div>
+				<div class="data">
+					<span>备注</span>
+					<input type="text" placeholder="输入备注" v-model="bookingInfo.comment">
+				</div>
+			</div>
+
+			<!-- 保存 -->
+			<div class="save-box">
+				<button @click="save">保存</button>
+			</div>
+
+		</div>
+		<div class="box">
+			<div class="header">
+				消费记录
+			</div>
+			<div class="cosumer-box">
+				<div class="cosumer" v-for="item in bookingData">
+					<div class="left">
+						<span class="iconfont">
+							<img class="auto-img" :src="item.types.icon" alt="">
+						</span>
+					</div>
+					<div class="content">
+						<div>
+							<div :class="{t: item.booking.comment == ''}">
+								<span>{{item.account.title}}</span>
+								<span style="margin-left: 20px;">{{item.booking.date}}</span>
+							</div>
+							<div>{{item.booking.comment}}</div>
+						</div>
+					</div>
+					<div class="right">
+						<span :class="[item.titles.type]">￥{{item.booking.money}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 模型 M Model -->
+	<script src="./vue.js"></script>
+	<script>
+		var app = new Vue({
+			el: '#app',
+			data: {
+				//收入-支出
+				titles: [
+					{ title: '收入', type: 'shouru', isActive: true },
+					{ title: '支出', type: 'zhichu', isActive: false }
+				],
+
+				//类型
+				types: [
+					{ title: '餐饮', icon: './images/a.png', isActive: true},
+					{ title: '出行', icon: './images/a.png', isActive: false},
+					{ title: '交通', icon: './images/a.png', isActive: false},
+					{ title: '购物', icon: './images/a.png', isActive: false},
+					{ title: '健康', icon: './images/a.png', isActive: false},
+					{ title: '娱乐', icon: './images/a.png', isActive: false},
+					{ title: '住房', icon: './images/a.png', isActive: false},
+					{ title: '人情', icon: './images/a.png', isActive: false},
+					{ title: '学习', icon: './images/a.png', isActive: false},
+					{ title: '其他', icon: './images/a.png', isActive: false}
+				],
+
+				//账户选择
+				account: [
+					{ title: '支付宝', isActive: true },
+					{ title: '微信', isActive: false },
+					{ title: '现金', isActive: false },
+					{ title: '储蓄卡', isActive: false },
+					{ title: '信用卡', isActive: false }
+				],
+
+				//记账信息
+				bookingInfo: {
+					date: '',
+					money: '',
+					comment: ''
+				},
+
+				//保存所有记账数据
+				bookingData: []
+
+			},
+
+			methods: {
+				//切换标签
+				toggleTag(key, item) {
+					//key: 数据名称
+					//item: 点击的标签的对象
+
+					//如果当前已经选中，则拦截
+					if (item.isActive) {
+						console.log('拦截');
+						return;
+					}
+
+					//查找之前激活的标签，将其改为未激活
+					for (let i = 0; i < this[key].length; i++) {
+						if (this[key][i].isActive) {
+							this[key][i].isActive = false;
+							break;
+						}
+					}
+
+					item.isActive = true;
+
+				},
+
+				//保存
+				save() {
+
+					let keys = ['titles', 'types', 'account'];
+
+					//获取选中的标签
+					let o = {
+						booking: Object.assign({}, this.bookingInfo)
+					};
+					for (let i = 0; i < keys.length; i++) {
+						
+						for (let j = 0; j < this[keys[i]].length; j++) {
+							if (this[keys[i]][j].isActive) {
+								o[keys[i]] = this[keys[i]][j];
+								break;
+							}
+						}
+
+					}
+
+					this.bookingData.push(o);
+
+					console.log('this.bookingData ==> ', this.bookingData);
+
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>

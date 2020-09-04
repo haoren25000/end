@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="">
+</head>
+
+<style>
+
+</style>
+<body>
+  <canvas id="canvas" width="110" height="110"></canvas>
+	
+  <script>
+	var c = document.getElementById("canvas");
+
+     //获取绘图上下文
+    var ctx = c.getContext("2d");	
+     //开始位置
+    var x = -1.3;
+     //增量
+	var step = 0.01;
+	
+     //定时器
+   var timer = setInterval(function(){
+	 //清屏
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	 //画圆弧
+	ctx.beginPath();
+
+	ctx.arc(55,55,50,Math.PI/1.5,Math.PI*x);
+
+	 //设置绘制颜色
+	ctx.strokeStyle = "black";
+	 //设置绘制线条宽度
+	ctx.lineWidth = 5;
+	 //描边
+	ctx.stroke();
+
+	 //处理增量
+	x += step;
+
+	 //当画完整个圆时清除定时器
+	if(x>0.3){
+ 	  clearInterval(timer);
+ 	}
+   },10);
+  </script>
+  
+</body>
+</html>

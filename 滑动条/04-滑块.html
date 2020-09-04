@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      margin: 0 auto;
+    }
+    .slide-box{
+      height: 20px;
+      position: relative;
+    }
+
+    .slide-progress{
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto 0;
+      height: 4px;
+    }
+
+    .slide-not-active{
+      background-color: #e8e8e8;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .slide-active{
+      z-index: 3;
+      width: 0;
+    }
+
+    .content{
+      padding: 20px;
+    }
+
+    .mask{
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: -10px;
+      top: 0;
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 0px 1px 2px 1px rgba(30, 30, 30, .25);
+      z-index: 4;
+    }
+    .layer{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="app">
+    <v-slide @slide-end="getPercent" active-bg="black"></v-slide>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+
+    Vue.component('v-slide', {
+      props: {
+        activeBg: {
+          type: String,
+          default: 'rgb(27, 105, 221)'
+        }
+      },
+
+      template: `
+        <div class="content">
+          <div ref="slideBox" class="slide-box">
+            <div class="slide-not-active slide-progress"></div>
+            <div class="slide-active slide-progress" :style="{width: activeProgressWidth + 'px', backgroundColor: activeBg}"></div>
+            <div class="mask" ref="mask" :style="{left: maskLeft + 'px'}"></div>
+            <div class="layer" @touchstart="touchstart" @touchmove="move" @touchend="end"></div>
+          </div>
+        </div>
+      `,
+
+      data() {
+        return {
+          activeProgressWidth: 0,
+          maskLeft: -10,
+          slideBox: null
+        };
+      },
+
+      created() {
+        this.$nextTick(() => {
+          this.slideBox = this.$refs.slideBox;
+        })
+        
+      },
+
+      methods: {
+        setProgress(e) {
+          let x0 = e.targetTouches[0].pageX;
+          let offsetLeft = this.slideBox.offsetLeft;
+          let minWidth = 0;
+          let maxWidth = this.slideBox.clientWidth;
+          let width = x0 - offsetLeft;
+
+          width = width >= maxWidth ? maxWidth : width <= minWidth ? minWidth : width;
+          
+          this.activeProgressWidth = width;
+          //获取mask宽度
+          let maskWidth = this.$refs.mask.clientWidth;
+          //最大值left
+          let maxLeft = this.slideBox.clientWidth - maskWidth / 2;
+          //最小值left
+          let minLeft = -maskWidth / 2;
+          let left = x0 - offsetLeft - maskWidth / 2;
+          left = left >= maxLeft ? maxLeft : left <= minLeft ? minLeft : left;
+          this.maskLeft = left;
+        },
+
+        touchstart(e) {
+          this.setProgress(e);
+        },
+
+        //移动
+        move(e) {
+          this.setProgress(e);
+        },
+
+        //松开
+        end() {
+          let percent = this.activeProgressWidth / this.slideBox.clientWidth;
+          console.log('percent ==> ', percent);
+          this.$emit('slide-end', percent);
+        }
+      }
+    })
+
+    new Vue({
+      el: '#app',
+      methods: {
+        getPercent(e) {
+          console.log('e ==> ', e);
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>

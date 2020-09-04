@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+     .slide{
+       width: 380px;
+       height: 50px;
+       border: 1px solid black;
+       padding: 10px;
+     }
+     .layer{
+       width: 100%;
+       height: 100%;
+       position: absolute; 
+       z-index: 5;
+       display: none;
+     }
+     .block{
+       width: 60px;
+       height: 50px;
+       background-color: brown;
+       position: relative;
+     }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+     <v-slide></v-slide>
+  </div>
+  
+  <script src="./vue.js"></script>
+
+  <script>
+
+    Vue.component('v-slide', {
+      props: {
+         //移动距离
+         x:{
+           type:Number,
+           x0: 0
+         }
+         
+      },
+      template: `
+        <div class="slide">
+           <div class="layer" @touchmove="touchmove(e)" @touchup="touchup(e)" @touchout="touchout(e)" ></div>
+           <div class="block" @touchstart="touchstart(e)" ></div>
+        </div>
+      `,
+
+      methods:{
+   
+        touchstart(e){
+            this.x = e.offsetX
+            this.layer.style.display = 'block';
+        },
+
+        touchmove(e){
+            this.x = e.offsetX - x;
+            this.block.style.left = x + 'px';
+        },
+
+        touchup(e){
+            this.layer.style.display = 'none';
+        },
+        touchout(e){
+            this.layer.style.display = 'none';
+        }
+      }
+
+    })
+
+    new Vue({
+      el: '#app',
+      
+
+      
+    })
+
+  </script>
+</body>
+</html>

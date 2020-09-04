@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .v-star-box::after{
+      content: "";
+      display: block;
+      clear: both;
+    }
+    .v-star-box .v-star-title{
+      float: left;
+      font-size: 14px;
+      color: #444;
+      line-height: 24px;
+      margin-right: 10px;
+    }
+
+    .v-star-box .v-star-count{
+      float: left;
+    }
+
+    .v-star-box .v-v-star{
+      float: left;
+      width: 24px;
+      height: 24px;
+    }
+
+    .v-star .auto-img{
+      width: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+    <v-star v-for="(item, index) in stars" :key="index" :active-star-count="item.activeStar" @send-star="getActiveStar($event, index)">{{item.title}}</v-star>
+
+    <button @click="commit">提交</button>
+  </div>
+  
+  <script src="./vue.js"></script>
+
+  <script>
+
+    Vue.component('v-star', {
+
+      props: {
+
+        //星星数量
+        count: {
+          type: Number,
+          default: 5
+        },
+
+        //激活的星数量
+        activeStarCount: {
+          type: Number,
+          default: 0
+        }
+      },
+
+      template: `
+        <div class="v-star">
+          <div class="v-star-box">
+            <div class="v-star-title">
+              <slot></slot>
+            </div>
+            <div class="v-star-count">
+              <span class="v-v-star" v-for="(item, index) in starData" @click="selectStar(index)">
+                <img class="auto-img" :src="item.isActive ? './star_active.png' : './star.png'" />
+              </span>
+            </div>
+          </div>
+        </div>
+      `,
+
+      data() {
+        return {
+          starData: []
+        };
+      },
+
+      //初始化组件内容
+      created() {
+
+        //初始化starData，星的数量
+        for (let i = 0; i < this.count; i++) {
+          this.starData.push({isActive: false});
+        }
+
+        //初始化激活的星数
+        this.selectStar(this.activeStarCount - 1);
+      },
+
+      methods: {
+        //选择星星
+        selectStar(index) {
+          for (let i = 0; i < this.starData.length; i++) {
+            this.starData[i].isActive = i <= index;
+          }
+
+          //触发组件自定义事件, 以便父组件修改数据
+          this.$emit('send-star', index + 1);
+        }
+      }
+    })
+
+
+
+
+    new Vue({
+      el: '#app',
+
+      data: {
+        stars: [
+          {title: '配送速度', activeStar: 3},
+          {title: '商品质量', activeStar: 1},
+          {title: '客服服务', activeStar: 5}
+        ]
+      },
+
+      methods: {
+        commit() {
+          console.log('this.stars ==> ', this.stars);
+        },
+
+        //获取激活的星数量
+        getActiveStar(e, index) {
+          console.log('e ==> ', e);
+          this.stars[index].activeStar = e;
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>

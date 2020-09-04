@@ -1,0 +1,46 @@
+vuex: 状态管理(数据管理)
+
+父子组件传值：
+
+
+如果A、B兄弟组件传值，比如A组件向B组件传值，此时需要使用vuex实现
+
+如果父组件A, 子组件B, 组件B有一个子组件X, 父组件A向组件X传值，此时需要使用vuex实现
+
+export default new Vuex.Store({
+
+  //类似组件data
+  state: {
+  },
+
+  //类似组件computed
+  getters: {
+
+  },
+
+  //类似组件methods
+  mutations: {
+  },
+
+  //提交mutations
+  actions: {
+  },
+
+  //模块
+  modules: {
+    state,
+    getters,
+    mutations,
+    actions,
+    modules: {
+      state,
+      getters,
+      mutations,
+      actions,
+      modules
+    }
+  }
+})
+
+小数正则
+/^(([^0][0-9]+|0)\.([0-9]{1,2}))$/

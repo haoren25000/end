@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		
+	</style>
+</head>
+
+<body>
+    
+	<script>
+     function clone(parameter1,parameter2){
+         //判断该参数是否为对象
+         if(typeof parameter1 == "object"){
+             //创建一个空对象接受参数值
+             let newObj = {};
+          for(key in parameter1){
+              newObj[key] = parameter1[key];
+          }
+          console.log('newObj ===>', newObj)
+         } else{
+             console.log('该参数不是一个对象')
+         }
+      }
+
+      clone({a:"dsd",b:"sadas",c:"等等"})
+	  
+
+	</script>
+
+</body>
+
+</html>

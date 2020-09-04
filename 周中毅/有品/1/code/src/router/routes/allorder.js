@@ -1,0 +1,34 @@
+export default[
+    {
+    path:'/orderlist',name:'全部订单',
+    component:()=>import("../../views/orderlist.vue"),
+    children:[
+        {
+            path:"allor",
+            name:"全部",
+            component:()=>import("../../components/myorder/allor.vue")
+        },
+        {
+            path:"obligation",
+            name:"待付款",
+            component:()=>import("../../components/myorder/obligation.vue")
+        },
+        {
+            path:"wait",
+            name:"待收货",
+            component:()=>import("../../components/myorder/wait.vue")
+        },
+        {
+            path:"refund",
+            name:"退款订单",
+            component:()=>import("../../components/myorder/refund.vue")
+        },
+        {
+            path:"received",
+            name:"已收货",
+            component:()=>import("../../components/myorder/received.vue")
+        },
+      
+    ]
+}
+]
